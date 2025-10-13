@@ -12,16 +12,15 @@ export function LoadingSpinner({ size = "medium", text = "Loading..." }) {
       <div
         className={`animate-spin rounded-full border-b-2 border-primary-600 ${sizeClasses[size]}`}
       ></div>
-      {text && <p className="mt-4 text-gray-600">{text}</p>}
+      {text && <p className="mt-4 text-gray-600 dark:text-gray-300">{text}</p>}
     </div>
   );
 }
 
 export function LoadingPage({ text = "Loading..." }) {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
       <LoadingSpinner size="large" text={text} />
     </div>
   );
 }
-

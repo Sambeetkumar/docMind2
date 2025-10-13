@@ -74,9 +74,12 @@ export function Dashboard() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="bg-white rounded-lg shadow p-6 animate-pulse">
-            <div className="h-4 bg-gray-200 rounded mb-2"></div>
-            <div className="h-8 bg-gray-200 rounded"></div>
+          <div
+            key={i}
+            className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 animate-pulse"
+          >
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
+            <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
           </div>
         ))}
       </div>
@@ -88,29 +91,29 @@ export function Dashboard() {
       title: "PDFs Uploaded",
       value: stats.totalPdfs,
       icon: FileText,
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
+      color: "text-blue-600 dark:text-blue-400",
+      bgColor: "bg-blue-100 dark:bg-blue-900/20",
     },
     {
       title: "Chat Sessions",
       value: stats.totalChats,
       icon: MessageCircle,
-      color: "text-green-600",
-      bgColor: "bg-green-100",
+      color: "text-green-600 dark:text-green-400",
+      bgColor: "bg-green-100 dark:bg-green-900/20",
     },
     {
       title: "Quizzes Taken",
       value: stats.totalQuizzes,
       icon: HelpCircle,
-      color: "text-purple-600",
-      bgColor: "bg-purple-100",
+      color: "text-purple-600 dark:text-purple-400",
+      bgColor: "bg-purple-100 dark:bg-purple-900/20",
     },
     {
       title: "Average Score",
       value: `${stats.averageScore}%`,
       icon: Trophy,
-      color: "text-yellow-600",
-      bgColor: "bg-yellow-100",
+      color: "text-yellow-600 dark:text-yellow-400",
+      bgColor: "bg-yellow-100 dark:bg-yellow-900/20",
     },
   ];
 
@@ -119,16 +122,21 @@ export function Dashboard() {
       {statCards.map((stat, index) => {
         const Icon = stat.icon;
         return (
-          <div key={index} className="bg-white rounded-lg shadow p-6">
+          <div
+            key={index}
+            className="bg-white dark:bg-gray-800 rounded-lg shadow p-6"
+          >
             <div className="flex items-center">
               <div className={`p-3 rounded-lg ${stat.bgColor}`}>
                 <Icon className={`w-6 h-6 ${stat.color}`} />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {stat.title}
                 </p>
-                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {stat.value}
+                </p>
               </div>
             </div>
           </div>
@@ -137,4 +145,3 @@ export function Dashboard() {
     </div>
   );
 }
-

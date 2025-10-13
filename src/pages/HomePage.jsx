@@ -228,13 +228,13 @@ export function HomePage() {
   };
 
   return (
-    <div className="h-full bg-gray-50 overflow-y-auto">
+    <div className="h-full bg-gray-50 dark:bg-gray-900 overflow-y-auto">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Welcome to DocMind
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             Upload a PDF document to start chatting or take an interactive quiz
           </p>
         </div>
@@ -244,12 +244,12 @@ export function HomePage() {
           <Dashboard />
         </div>
 
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-8">
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6 text-center">
             Upload Your PDF
           </h2>
 
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary-400 transition-colors">
+          <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-primary-400 dark:hover:border-primary-500 transition-colors">
             <input
               id="pdf-upload"
               type="file"
@@ -261,21 +261,21 @@ export function HomePage() {
               htmlFor="pdf-upload"
               className="cursor-pointer flex flex-col items-center"
             >
-              <Upload className="w-12 h-12 text-gray-400 mb-4" />
-              <span className="text-lg font-medium text-gray-700 mb-2">
+              <Upload className="w-12 h-12 text-gray-400 dark:text-gray-500 mb-4" />
+              <span className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Click to upload PDF
               </span>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
                 or drag and drop your PDF here
               </span>
             </label>
           </div>
 
           {file && (
-            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
               <div className="flex items-center">
-                <FileText className="w-5 h-5 text-primary-600 mr-2" />
-                <span className="text-sm font-medium text-gray-700">
+                <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400 mr-2" />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
                 </span>
               </div>
@@ -283,10 +283,12 @@ export function HomePage() {
           )}
 
           {error && (
-            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
               <div className="flex items-center">
                 <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
-                <span className="text-sm text-red-700">{error}</span>
+                <span className="text-sm text-red-700 dark:text-red-300">
+                  {error}
+                </span>
               </div>
             </div>
           )}
@@ -309,14 +311,16 @@ export function HomePage() {
               )}
             </button>
             {uploadStatus && (
-              <p className="mt-2 text-sm text-gray-600">{uploadStatus}</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                {uploadStatus}
+              </p>
             )}
           </div>
         </div>
 
         {uploadedPdf && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6 text-center">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6 text-center">
               PDF Ready!
             </h2>
             <div className="flex justify-center space-x-4">

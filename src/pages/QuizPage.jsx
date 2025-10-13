@@ -157,10 +157,10 @@ export function QuizPage() {
 
   if (isLoading) {
     return (
-      <div className="h-full bg-gray-50 flex items-center justify-center">
+      <div className="h-full bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Generating quiz...</p>
+          <p className="text-gray-600 dark:text-gray-300">Generating quiz...</p>
         </div>
       </div>
     );
@@ -168,9 +168,9 @@ export function QuizPage() {
 
   if (!quiz) {
     return (
-      <div className="h-full bg-gray-50 flex items-center justify-center">
+      <div className="h-full bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Failed to generate quiz. Please try again.
           </p>
           <button
@@ -187,26 +187,26 @@ export function QuizPage() {
   const currentQ = quiz.questions[currentQuestion];
 
   return (
-    <div className="h-full bg-gray-50 overflow-y-auto">
+    <div className="h-full bg-gray-50 dark:bg-gray-900 overflow-y-auto">
       <div className="max-w-4xl mx-auto px-4 py-4">
-        <div className="bg-white rounded-lg shadow-lg p-8">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <button
               onClick={() => navigate("/")}
-              className="flex items-center text-gray-600 hover:text-gray-800"
+              className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Home
             </button>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-gray-500 dark:text-gray-400">
               Question {currentQuestion + 1} of {quiz.questions.length}
             </div>
           </div>
 
           {/* Progress Bar */}
           <div className="mb-8">
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
               <div
                 className="bg-primary-600 h-2 rounded-full transition-all duration-300"
                 style={{
@@ -220,7 +220,7 @@ export function QuizPage() {
 
           {/* Question */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
               {currentQ.question}
             </h2>
 
@@ -230,8 +230,8 @@ export function QuizPage() {
                   key={index}
                   className={`block p-4 border rounded-lg cursor-pointer transition-colors ${
                     selectedAnswers[currentQ.id] === index
-                      ? "border-primary-500 bg-primary-50"
-                      : "border-gray-300 hover:border-gray-400"
+                      ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20"
+                      : "border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500"
                   }`}
                 >
                   <input
@@ -242,7 +242,9 @@ export function QuizPage() {
                     onChange={() => handleAnswerSelect(currentQ.id, index)}
                     className="sr-only"
                   />
-                  <span className="text-gray-900">{option}</span>
+                  <span className="text-gray-900 dark:text-white">
+                    {option}
+                  </span>
                 </label>
               ))}
             </div>
@@ -253,7 +255,7 @@ export function QuizPage() {
             <button
               onClick={handlePreviousQuestion}
               disabled={currentQuestion === 0}
-              className="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg font-medium hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-6 py-2 rounded-lg font-medium hover:bg-gray-400 dark:hover:bg-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Previous
             </button>

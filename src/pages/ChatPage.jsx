@@ -188,19 +188,19 @@ export function ChatPage() {
   }
 
   return (
-    <div className="h-full bg-gray-50">
+    <div className="h-full bg-gray-50 dark:bg-gray-900">
       <div className="h-full max-w-4xl mx-auto px-4 py-4">
-        <div className="bg-white rounded-lg shadow-lg h-full flex flex-col">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
             <button
               onClick={() => navigate("/")}
-              className="flex items-center text-gray-600 hover:text-gray-800"
+              className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Home
             </button>
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
               Chat: {pdfData.filename}
             </h2>
             <div></div>
@@ -219,7 +219,7 @@ export function ChatPage() {
                   className={`max-w-xs lg:max-w-2xl px-4 py-3 rounded-lg break-words overflow-hidden ${
                     message.role === "user"
                       ? "bg-primary-600 text-white"
-                      : "bg-gray-200 text-gray-900"
+                      : "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white"
                   }`}
                 >
                   <div className="flex items-start">
@@ -247,7 +247,7 @@ export function ChatPage() {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-gray-200 text-gray-900 max-w-xs lg:max-w-md px-4 py-2 rounded-lg">
+                <div className="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white max-w-xs lg:max-w-md px-4 py-2 rounded-lg">
                   <div className="flex items-center">
                     <Bot className="w-4 h-4 mr-2" />
                     <div className="text-sm">Thinking...</div>
@@ -259,7 +259,7 @@ export function ChatPage() {
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t">
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex space-x-2">
               <input
                 type="text"
@@ -267,7 +267,7 @@ export function ChatPage() {
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask a question about the PDF..."
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 disabled={isLoading}
               />
               <button

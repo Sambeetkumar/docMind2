@@ -228,31 +228,33 @@ export function HistoryPage() {
 
   if (isLoading) {
     return (
-      <div className="h-full bg-gray-50 flex items-center justify-center">
+      <div className="h-full bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading history...</p>
+          <p className="text-gray-600 dark:text-gray-300">Loading history...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="h-full bg-gray-50 overflow-y-auto">
+    <div className="h-full bg-gray-50 dark:bg-gray-900 overflow-y-auto">
       <div className="max-w-6xl mx-auto px-4 py-4">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Your History</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+          Your History
+        </h1>
 
         {/* Chat Sessions */}
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4 flex items-center">
-            <MessageCircle className="w-6 h-6 mr-2 text-blue-600" />
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+            <MessageCircle className="w-6 h-6 mr-2 text-blue-600 dark:text-blue-400" />
             Chat Sessions
           </h2>
 
           {chatSessions.length === 0 ? (
-            <div className="bg-white rounded-lg shadow p-8 text-center">
-              <MessageCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">
+              <MessageCircle className="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+              <p className="text-gray-600 dark:text-gray-300">
                 No chat sessions yet. Start chatting with a PDF!
               </p>
               <Link
@@ -267,21 +269,21 @@ export function HistoryPage() {
               {chatSessions.map((session) => (
                 <div
                   key={session.id}
-                  className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow cursor-pointer group"
+                  className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 hover:shadow-lg transition-shadow cursor-pointer group"
                   onClick={() => handleChatSessionClick(session)}
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900 truncate group-hover:text-blue-600 transition-colors">
+                    <h3 className="font-semibold text-gray-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {session.title}
                     </h3>
                     <div className="flex items-center space-x-2">
-                      <MessageCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                      <MessageCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleDeleteChatSession(session.id);
                         }}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-red-100 rounded"
+                        className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-red-100 dark:hover:bg-red-900/20 rounded"
                         title="Delete chat session"
                       >
                         <Trash2 className="w-4 h-4 text-red-500" />
@@ -289,21 +291,21 @@ export function HistoryPage() {
                     </div>
                   </div>
 
-                  <div className="text-sm text-gray-600 mb-2">
+                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                     <FileText className="w-4 h-4 inline mr-1" />
                     {session.pdf_documents?.filename || "Unknown PDF"}
                   </div>
 
-                  <div className="text-sm text-gray-500 mb-4">
+                  <div className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                     <Calendar className="w-4 h-4 inline mr-1" />
                     {formatDate(session.created_at)}
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-gray-600 dark:text-gray-400">
                       {session.messages?.length || 0} messages
                     </div>
-                    <div className="flex items-center text-blue-600 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center text-blue-600 dark:text-blue-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
                       <Play className="w-4 h-4 mr-1" />
                       Continue Chat
                     </div>
@@ -316,15 +318,15 @@ export function HistoryPage() {
 
         {/* Quiz Sessions */}
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4 flex items-center">
-            <HelpCircle className="w-6 h-6 mr-2 text-green-600" />
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+            <HelpCircle className="w-6 h-6 mr-2 text-green-600 dark:text-green-400" />
             Quiz Sessions
           </h2>
 
           {quizSessions.length === 0 ? (
-            <div className="bg-white rounded-lg shadow p-8 text-center">
-              <HelpCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">
+              <HelpCircle className="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+              <p className="text-gray-600 dark:text-gray-300">
                 No quiz sessions yet. Take a quiz on a PDF!
               </p>
               <Link
@@ -344,14 +346,14 @@ export function HistoryPage() {
                 return (
                   <div
                     key={session.id}
-                    className="bg-white rounded-lg shadow p-6 group relative"
+                    className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 group relative"
                   >
                     <div className="flex items-start justify-between mb-3">
-                      <h3 className="font-semibold text-gray-900 truncate">
+                      <h3 className="font-semibold text-gray-900 dark:text-white truncate">
                         {session.title}
                       </h3>
                       <div className="flex items-center">
-                        <HelpCircle className="w-5 h-5 text-green-600 flex-shrink-0 ml-2" />
+                        <HelpCircle className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 ml-2" />
                         <button
                           onClick={() => handleDeleteQuizSession(session.id)}
                           className="ml-2 text-red-500 hover:text-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -362,17 +364,17 @@ export function HistoryPage() {
                       </div>
                     </div>
 
-                    <div className="text-sm text-gray-600 mb-2">
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                       <FileText className="w-4 h-4 inline mr-1" />
                       {session.pdf_documents?.filename || "Unknown PDF"}
                     </div>
 
-                    <div className="text-sm text-gray-500 mb-2">
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                       <Calendar className="w-4 h-4 inline mr-1" />
                       {formatDate(session.created_at)}
                     </div>
 
-                    <div className="text-sm text-gray-600 mb-2">
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                       {session.questions?.length || 0} questions
                     </div>
 
@@ -399,7 +401,7 @@ export function HistoryPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center">
                           <HelpCircle className="w-4 h-4 mr-1 text-gray-400" />
-                          <span className="text-sm text-gray-500">
+                          <span className="text-sm text-gray-500 dark:text-gray-400">
                             Not completed
                           </span>
                         </div>
@@ -443,37 +445,37 @@ export function HistoryPage() {
         {/* Quiz Scores Summary */}
         {quizScores.length > 0 && (
           <div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 flex items-center">
-              <Trophy className="w-6 h-6 mr-2 text-yellow-600" />
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+              <Trophy className="w-6 h-6 mr-2 text-yellow-600 dark:text-yellow-400" />
               Quiz Scores
             </h2>
 
-            <div className="bg-white rounded-lg shadow overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                  <thead className="bg-gray-50 dark:bg-gray-700">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                         Quiz
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                         PDF
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                         Score
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                         Completed
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                     {quizScores.map((score) => (
                       <tr key={score.id}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                           {score.quiz_sessions?.title || "Unknown Quiz"}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                           {score.quiz_sessions?.pdf_documents?.filename ||
                             "Unknown PDF"}
                         </td>
@@ -486,7 +488,7 @@ export function HistoryPage() {
                             {score.score}%
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                           {formatDate(score.completed_at)}
                         </td>
                       </tr>

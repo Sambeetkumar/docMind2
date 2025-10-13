@@ -10,9 +10,11 @@ export function QuizResultsPage() {
 
   if (!session || !score) {
     return (
-      <div className="h-full bg-gray-50 flex items-center justify-center">
+      <div className="h-full bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600">No quiz results found.</p>
+          <p className="text-gray-600 dark:text-gray-300">
+            No quiz results found.
+          </p>
           <button
             onClick={() => navigate("/history")}
             className="mt-4 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700"
@@ -25,14 +27,14 @@ export function QuizResultsPage() {
   }
 
   return (
-    <div className="h-full bg-gray-50 overflow-y-auto">
+    <div className="h-full bg-gray-50 dark:bg-gray-900 overflow-y-auto">
       <div className="max-w-4xl mx-auto px-4 py-4">
-        <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <button
               onClick={() => navigate("/history")}
-              className="flex items-center text-gray-600 hover:text-gray-800"
+              className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to History
@@ -42,18 +44,20 @@ export function QuizResultsPage() {
 
           {/* Score Display */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Quiz Complete!
             </h1>
-            <div className="text-6xl font-bold text-primary-600 mb-2">
+            <div className="text-6xl font-bold text-primary-600 dark:text-primary-400 mb-2">
               {score.score}%
             </div>
-            <p className="text-xl text-gray-600">Your Score</p>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
+              Your Score
+            </p>
           </div>
 
           {/* Quiz Results */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
               Quiz Results
             </h2>
             <div className="space-y-4">
@@ -66,7 +70,7 @@ export function QuizResultsPage() {
                 return (
                   <div
                     key={question.id}
-                    className="text-left p-4 border rounded-lg"
+                    className="text-left p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
                   >
                     <div className="flex items-start mb-2">
                       {isCorrect ? (
@@ -75,16 +79,16 @@ export function QuizResultsPage() {
                         <XCircle className="w-5 h-5 text-red-500 mr-2 mt-1" />
                       )}
                       <div>
-                        <p className="font-medium text-gray-900">
+                        <p className="font-medium text-gray-900 dark:text-white">
                           Question {index + 1}: {question.question}
                         </p>
-                        <p className="text-sm text-gray-600 mt-1">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                           Your answer:{" "}
                           {question.options[userAnswer?.userAnswer] ||
                             "Not answered"}
                         </p>
                         {!isCorrect && (
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-gray-600 dark:text-gray-400">
                             Correct answer:{" "}
                             {question.options[question.correctAnswer]}
                           </p>
@@ -101,7 +105,7 @@ export function QuizResultsPage() {
           <div className="flex justify-center space-x-4">
             <button
               onClick={() => navigate("/history")}
-              className="bg-gray-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors"
+              className="bg-gray-600 dark:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors"
             >
               Back to History
             </button>
@@ -117,4 +121,3 @@ export function QuizResultsPage() {
     </div>
   );
 }
-

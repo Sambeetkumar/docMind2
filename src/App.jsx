@@ -15,6 +15,7 @@ import { HistoryPage } from "./pages/HistoryPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { ToastProvider } from "./components/Toast";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -25,30 +26,35 @@ if (!PUBLISHABLE_KEY) {
 export function App() {
   return (
     <ErrorBoundary>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-        <ToastProvider>
-          <SignedIn>
-            <Router>
-              <div className="h-screen bg-gray-50 flex flex-col">
-                <Navigation />
-                <div className="flex-1 overflow-hidden">
-                  <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/chat" element={<ChatPage />} />
-                    <Route path="/quiz" element={<QuizPage />} />
-                    <Route path="/quiz-results" element={<QuizResultsPage />} />
-                    <Route path="/history" element={<HistoryPage />} />
-                    <Route path="/settings" element={<SettingsPage />} />
-                  </Routes>
+      <ThemeProvider>
+        <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+          <ToastProvider>
+            <SignedIn>
+              <Router>
+                <div className="h-screen bg-gray-50 dark:bg-gray-900 flex flex-col transition-colors">
+                  <Navigation />
+                  <div className="flex-1 overflow-hidden">
+                    <Routes>
+                      <Route path="/" element={<HomePage />} />
+                      <Route path="/chat" element={<ChatPage />} />
+                      <Route path="/quiz" element={<QuizPage />} />
+                      <Route
+                        path="/quiz-results"
+                        element={<QuizResultsPage />}
+                      />
+                      <Route path="/history" element={<HistoryPage />} />
+                      <Route path="/settings" element={<SettingsPage />} />
+                    </Routes>
+                  </div>
                 </div>
-              </div>
-            </Router>
-          </SignedIn>
-          <SignedOut>
-            <RedirectToSignIn />
-          </SignedOut>
-        </ToastProvider>
-      </ClerkProvider>
+              </Router>
+            </SignedIn>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+          </ToastProvider>
+        </ClerkProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }
