@@ -297,24 +297,17 @@ export function HomePage() {
             <button
               onClick={handleUpload}
               disabled={!file || isUploading}
-              className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center mx-auto"
+              className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors inline-flex items-center space-x-2 min-w-[180px] justify-center"
             >
               {isUploading ? (
                 <>
-                  <LoadingSpinner size="small" text="" />
-                  <span className="ml-2">
-                    {uploadStatus || "Processing..."}
-                  </span>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
+                  <span>{uploadStatus || "Processing..."}</span>
                 </>
               ) : (
                 "Upload PDF"
               )}
             </button>
-            {uploadStatus && (
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                {uploadStatus}
-              </p>
-            )}
           </div>
         </div>
 
