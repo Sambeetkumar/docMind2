@@ -131,7 +131,7 @@ export function QuizResultsPage() {
 
   return (
     <div className="h-full bg-gray-50 dark:bg-gray-900 overflow-y-auto">
-      <div className="max-w-4xl mx-auto px-4 py-4">
+      <div className="max-w-4xl mx-auto sm:px-4 sm:py-4">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">

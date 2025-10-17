@@ -187,19 +187,20 @@ export function QuizPage() {
   const currentQ = quiz.questions[currentQuestion];
 
   return (
-    <div className="h-full bg-gray-50 dark:bg-gray-900 overflow-y-auto">
-      <div className="max-w-4xl mx-auto px-4 py-4">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+    <div className="min-h-screen sm:h-full bg-gray-50 dark:bg-gray-900 overflow-y-auto">
+      <div className="max-w-4xl mx-auto px-0 sm:px-4 py-0 sm:py-4 h-full">
+        <div className="bg-white dark:bg-gray-800 sm:rounded-lg shadow-lg p-4 sm:p-6 md:p-8 min-h-screen sm:min-h-0">
           {/* Header */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 space-y-4 sm:space-y-0">
             <button
               onClick={() => navigate("/")}
               className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to Home
+              <span className="hidden sm:inline">Back to Home</span>
+              <span className="sm:hidden">Back</span>
             </button>
-            <div className="text-sm text-gray-500 dark:text-gray-400">
+            <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">
               Question {currentQuestion + 1} of {quiz.questions.length}
             </div>
           </div>
@@ -219,16 +220,16 @@ export function QuizPage() {
           </div>
 
           {/* Question */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6">
               {currentQ.question}
             </h2>
 
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {currentQ.options.map((option, index) => (
                 <label
                   key={index}
-                  className={`block p-4 border rounded-lg cursor-pointer transition-colors ${
+                  className={`block p-3 sm:p-4 border rounded-lg cursor-pointer transition-colors text-sm sm:text-base ${
                     selectedAnswers[currentQ.id] === index
                       ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20"
                       : "border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500"
@@ -251,11 +252,11 @@ export function QuizPage() {
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-4">
             <button
               onClick={handlePreviousQuestion}
               disabled={currentQuestion === 0}
-              className="bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-6 py-2 rounded-lg font-medium hover:bg-gray-400 dark:hover:bg-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 sm:flex-none bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-4 sm:px-6 py-3 rounded-lg text-sm sm:text-base font-medium hover:bg-gray-400 dark:hover:bg-gray-500 disabled:opacity-50 disabled:cursor-not-allowed min-w-[100px]"
             >
               Previous
             </button>
@@ -265,7 +266,7 @@ export function QuizPage() {
               disabled={
                 selectedAnswers[currentQ.id] === undefined || isSubmitting
               }
-              className="bg-primary-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 sm:flex-none bg-primary-600 text-white px-4 sm:px-6 py-3 rounded-lg text-sm sm:text-base font-medium hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed min-w-[100px]"
             >
               {isSubmitting
                 ? "Submitting..."

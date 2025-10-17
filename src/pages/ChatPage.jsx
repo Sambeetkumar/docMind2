@@ -189,7 +189,7 @@ export function ChatPage() {
 
   return (
     <div className="h-full bg-gray-50 dark:bg-gray-900">
-      <div className="h-full max-w-4xl mx-auto px-4 py-4">
+      <div className="h-full max-w-4xl mx-auto sm:px-4 sm:py-4">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
