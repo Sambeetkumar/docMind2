@@ -17,18 +17,41 @@ export function SettingsPage() {
 
   return (
     <div className="h-full bg-gray-50 dark:bg-gray-900 overflow-y-auto">
-      <div className="max-w-6xl mx-auto px-4 py-4">
-        <div className="flex items-center mb-8">
-          <Settings className="w-8 h-8 text-primary-600 dark:text-primary-400 mr-3" />
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
+        <div className="flex items-center mb-6 sm:mb-8">
+          <Settings className="w-6 h-6 sm:w-8 sm:h-8 text-primary-600 dark:text-primary-400 mr-2 sm:mr-3" />
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
             Settings
           </h1>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-          <div className="flex">
-            {/* Sidebar */}
-            <div className="w-64 bg-gray-50 dark:bg-gray-700 border-r border-gray-200 dark:border-gray-600">
+          <div className="block sm:flex">
+            {/* Mobile Tabs */}
+            <div className="sm:hidden">
+              <div className="flex overflow-x-auto p-2 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                {tabs.map((tab) => {
+                  const Icon = tab.icon;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`flex items-center px-4 py-2 text-sm font-medium rounded-lg mr-2 whitespace-nowrap flex-shrink-0 ${
+                        activeTab === tab.id
+                          ? "bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300"
+                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                      }`}
+                    >
+                      <Icon className="w-4 h-4 mr-2" />
+                      {tab.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Desktop Sidebar */}
+            <div className="hidden sm:block w-64 bg-gray-50 dark:bg-gray-700 border-r border-gray-200 dark:border-gray-600">
               <nav className="p-4">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
@@ -51,13 +74,13 @@ export function SettingsPage() {
             </div>
 
             {/* Content */}
-            <div className="flex-1 p-6">
+            <div className="flex-1 p-4 sm:p-6">
               {activeTab === "profile" && (
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+                  <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6">
                     Profile Settings
                   </h2>
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6 max-w-2xl">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Email Address
@@ -97,10 +120,10 @@ export function SettingsPage() {
 
               {activeTab === "notifications" && (
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+                  <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6">
                     Notification Settings
                   </h2>
-                  <div className="space-y-4">
+                  <div className="space-y-4 max-w-2xl">
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="text-sm font-medium text-gray-900 dark:text-white">
@@ -148,10 +171,10 @@ export function SettingsPage() {
 
               {activeTab === "privacy" && (
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+                  <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6">
                     Privacy Settings
                   </h2>
-                  <div className="space-y-4">
+                  <div className="space-y-4 max-w-2xl">
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="text-sm font-medium text-gray-900 dark:text-white">
@@ -200,42 +223,42 @@ export function SettingsPage() {
 
               {activeTab === "appearance" && (
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+                  <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-4 sm:mb-6">
                     Appearance Settings
                   </h2>
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                         Theme
                       </label>
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-2 gap-3 sm:gap-4 max-w-md">
                         <button
                           onClick={() => setThemeMode("light")}
-                          className={`border-2 rounded-lg p-4 text-center transition-all hover:scale-105 ${
+                          className={`border-2 rounded-lg p-3 sm:p-4 text-center transition-all hover:scale-105 ${
                             theme === "light"
                               ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20"
                               : "border-gray-300 dark:border-gray-600 hover:border-primary-300"
                           }`}
                         >
-                          <div className="w-8 h-8 bg-white border border-gray-300 rounded mx-auto mb-2 flex items-center justify-center">
-                            <Sun className="w-4 h-4 text-yellow-500" />
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white border border-gray-300 rounded mx-auto mb-2 flex items-center justify-center">
+                            <Sun className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500" />
                           </div>
-                          <span className="text-sm font-medium text-gray-900 dark:text-white">
+                          <span className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">
                             Light
                           </span>
                         </button>
                         <button
                           onClick={() => setThemeMode("dark")}
-                          className={`border-2 rounded-lg p-4 text-center transition-all hover:scale-105 ${
+                          className={`border-2 rounded-lg p-3 sm:p-4 text-center transition-all hover:scale-105 ${
                             theme === "dark"
                               ? "border-primary-500 bg-primary-50 dark:bg-primary-900/20"
                               : "border-gray-300 dark:border-gray-600 hover:border-primary-300"
                           }`}
                         >
-                          <div className="w-8 h-8 bg-gray-800 rounded mx-auto mb-2 flex items-center justify-center">
-                            <Moon className="w-4 h-4 text-blue-400" />
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gray-800 rounded mx-auto mb-2 flex items-center justify-center">
+                            <Moon className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
                           </div>
-                          <span className="text-sm font-medium text-gray-900 dark:text-white">
+                          <span className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">
                             Dark
                           </span>
                         </button>
