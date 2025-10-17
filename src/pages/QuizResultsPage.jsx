@@ -1,12 +1,115 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ArrowLeft, CheckCircle, XCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle, XCircle, Download } from "lucide-react";
+import { jsPDF } from "jspdf";
 
 export function QuizResultsPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
   const { session, score, pdfData } = location.state || {};
+
+  const handleSavePDF = () => {
+    const doc = new jsPDF();
+    let yPos = 20;
+    const pageWidth = doc.internal.pageSize.width;
+    const margin = 20;
+    const lineHeight = 7;
+    const contentWidth = pageWidth - margin * 2;
+
+    // Helper function to add text with word wrap
+    const addWrappedText = (text, y, fontSize = 12, isBold = false) => {
+      doc.setFontSize(fontSize);
+      doc.setFont("helvetica", isBold ? "bold" : "normal");
+
+      const lines = doc.splitTextToSize(text, contentWidth);
+      doc.text(lines, margin, y);
+      return lines.length * lineHeight;
+    };
+
+    // Add Quiz Title
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("Quiz Results", margin, yPos);
+    yPos += 15;
+
+    // Add Score
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text(`Score: ${score.score}%`, margin, yPos);
+    yPos += 15;
+
+    // Add PDF Title
+    doc.setFontSize(14);
+    doc.text(`Document: ${pdfData.filename}`, margin, yPos);
+    yPos += 15;
+
+    // Questions and Answers
+    session.questions.forEach((question, index) => {
+      const userAnswer = score.answers.find(
+        (a) => a.questionId === question.id
+      );
+      const isCorrect = userAnswer?.isCorrect;
+
+      // Check if we need a new page
+      if (yPos > 250) {
+        doc.addPage();
+        yPos = 20;
+      }
+
+      // Question
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "bold");
+      const questionText = `Question ${index + 1}: ${question.question}`;
+      yPos += addWrappedText(questionText, yPos, 12, true);
+      yPos += 5;
+
+      // Options
+      doc.setFont("helvetica", "normal");
+      question.options.forEach((option, optIndex) => {
+        const isUserAnswer = userAnswer?.userAnswer === optIndex;
+        const isCorrectAnswer = question.correctAnswer === optIndex;
+        let optionText = `${String.fromCharCode(65 + optIndex)}) ${option}`;
+
+        if (isUserAnswer) {
+          optionText += " (Your Answer)";
+          if (isCorrect) {
+            doc.setTextColor(0, 128, 0);
+          } else {
+            doc.setTextColor(255, 0, 0);
+          }
+        } else if (isCorrectAnswer && !isCorrect) {
+          optionText += " (Correct Answer)";
+          doc.setTextColor(0, 128, 0);
+        }
+
+        yPos += addWrappedText(optionText, yPos);
+        doc.setTextColor(0, 0, 0);
+        yPos += 2;
+      });
+
+      // Explanation
+      if (question.explanation) {
+        yPos += 3;
+        doc.setFont("helvetica", "italic");
+        doc.setTextColor(88, 88, 88);
+        yPos += addWrappedText(`Explanation: ${question.explanation}`, yPos);
+        doc.setTextColor(0, 0, 0);
+      }
+
+      yPos += 10;
+    });
+
+    try {
+      // Save the PDF
+      const fileName = `quiz-results-${
+        new Date().toISOString().split("T")[0]
+      }.pdf`;
+      doc.save(fileName);
+    } catch (error) {
+      console.error("Error saving PDF:", error);
+    }
+  };
 
   if (!session || !score) {
     return (
@@ -93,6 +196,9 @@ export function QuizResultsPage() {
                             {question.options[question.correctAnswer]}
                           </p>
                         )}
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          Explanation: {question.explanation}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -104,10 +210,11 @@ export function QuizResultsPage() {
           {/* Action Buttons */}
           <div className="flex justify-center space-x-4">
             <button
-              onClick={() => navigate("/history")}
-              className="bg-gray-600 dark:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors"
+              onClick={handleSavePDF}
+              className="bg-gray-600 dark:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors flex items-center"
             >
-              Back to History
+              <Download className="w-5 h-5 mr-2" />
+              Save PDF
             </button>
             <button
               onClick={() => navigate("/quiz", { state: { pdfData } })}
