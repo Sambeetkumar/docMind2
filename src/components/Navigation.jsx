@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { UserButton } from "@clerk/clerk-react";
-import { FileText, History, Settings } from "lucide-react";
+import { FileText, History, Settings, Menu, X } from "lucide-react";
 
 export function Navigation() {
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
     { path: "/", label: "Home", icon: FileText },
@@ -47,7 +48,48 @@ export function Navigation() {
             </div>
           </div>
           <div className="flex items-center">
+            {/* Mobile menu button */}
+            <div className="sm:hidden mr-2">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
+              >
+                <span className="sr-only">Open main menu</span>
+                {isOpen ? (
+                  <X className="block h-6 w-6" />
+                ) : (
+                  <Menu className="block h-6 w-6" />
+                )}
+              </button>
+            </div>
             <UserButton afterSignOutUrl="/" />
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        <div className={`sm:hidden ${isOpen ? 'block' : 'hidden'}`}>
+          <div className="pt-2 pb-3 space-y-1">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`${
+                    isActive
+                      ? 'bg-primary-50 border-primary-500 text-primary-700'
+                      : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'
+                  } block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition-colors`}
+                >
+                  <div className="flex items-center">
+                    <Icon className="w-5 h-5 mr-3" />
+                    {item.label}
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
